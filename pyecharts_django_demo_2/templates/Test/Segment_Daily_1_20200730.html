@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <title>AdminLTE 3 | Dashboard 2</title>
+<link rel="stylesheet" href="/static/css/table_style.css">
+<!-- <link  rel="stylesheet" href="/static/css/dateTime.css"> -->
+<script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/echarts.js"></script>
+
+    <!--日历引用用Css   -->
+
+
+
+
+<body>
+<div>
+{% include "index.html" %}
+
+{% block head %}
+
+ {% endblock %}
+
+</div>
+
+
+<!-- <form action="/demo/index/Segment_Daily_1/" method="get"> -->
+ <!--           Bus. Month <select name="Month" id="search" style="width: 50px;height: 22px"  >
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            <option>11</option>
+            <option>12</option>
+        </select>
+
+    <button type="submit" id='sum'>Refresh</button>
+</form> -->
+ 
+
+<style>
+.select_corlor{
+    border: 2px solid lightgray ;
+    margin-bottom: 20px;
+    font-size: 10px;
+    font-family: 微软雅黑;
+    height: 28px;
+
+}
+</style>
+
+
+<body>
+
+
+<div style="margin-left: 260px;">
+<!--日历模块————————————————————————————————————————-->
+    <div class="mycontainer div-left" style="margin-right: 760px;">
+        <form  action="/demo/index/Segment_Daily_1/" method="get" style="width: 1500px; left: 500px;">
+            Hotel Area&nbsp&nbsp<select name="Area" id="search" class="select_corlor" style=" width:100px;" >
+                    <option>EAST CHINA</option>
+                    <option>WEST CHINA</option>
+                    <option>SOUTH CHINA</option>
+                    <option>NORTH CHINA</option>
+                </select>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    Hotel Brand&nbsp&nbsp<select name="Brand" id="search" class="select_corlor" style="width:65px;" >
+                    <option>Reign</option>
+                    <option>Vista</option>s
+                    <option>Realm</option>
+                    <option>Jin</option><option>Moments</option>
+                </select>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            Hotel City&nbsp&nbsp<select name="City" id="search" class="select_corlor" style="width:50px;" >
+                    <option>北京</option>
+                    <option>上海</option>
+                    <option>成都</option>
+                    <option>天津</option>
+                </select>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+             Hotel Owner&nbsp&nbsp<select name="Owner" id="search" class="select_corlor" style="width:50px;" >
+                    <option>CBS</option>
+                    <option>OWN</option>
+                    <option>OTH</option>
+                    <option>R&F</option>
+                    <option>SUNAC</option>
+                </select>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            日期&nbsp&nbsp<input type="text" placeholder="请选择日期" id="date" name="q" value='' class="select_corlor" autocomplete="off"><br>
+            Hotel Name&nbsp&nbsp<select name="Hotel_Name" id="search" class="select_corlor" style="width:200px;">
+                    <option>Hotel A</option>
+                    <option>Hotel B</option>
+                    <option>Hotel C</option>
+                    <option>Hotel D</option>
+                </select>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                年份&nbsp<select name="Bus_Year" id="search" class="select_corlor" style="width: 60px;" >
+                    <option>2020</option>
+                    <option>2019</option>
+                    <option>2018</option>
+                </select>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                月份&nbsp<select name="Bus_Month" id="search" class="select_corlor" style="width: 40px;" >
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                </select><br>
+            <button   type="submit" class="button1">Refresh</button>
+        </form>
+</div>
+
+
+
+
+    <!--图表模块——————————————————————————————————————————————-->
+    <div id="bar" style="width:1050px; height:300px;"></div>
+    <!--图表模块——————————————————————————————————————————————-->
+
+    <!--表格模块————————————————————————————————————————    -->
+    <div id="info">
+        <table class="gridtable"></table>
+    </div>
+    <!--表格模块————————————————————————————————————————    -->
+</div>
+
+
+<script src="/static/js/dateTime.min.js"></script>
+<script>
+var chart = echarts.init(document.getElementById('bar'), 'white', {renderer: 'canvas'});
+//var aa=jQuery(document.getElementById('jsonresultdata1'))
+
+
+$(
+function () {
+getData();
+
+}
+);
+
+//获取row
+//var index_list = result.raw_data.index;
+var index2 = ['BAR','BAR','BAR','Package','Package','Package','Promotion','Promotion','Promotion','Online Wholesale','Online Wholesale','Online Wholesale','Consortia','Consortia','Consortia','Retail Total','Retail Total','Retail Total','Negotiated Rates A','Negotiated Rates A','Negotiated Rates A','Negotiated Rates B','Negotiated Rates B','Negotiated Rates B','Negotiated Rates C','Negotiated Rates C','Negotiated Rates C','SpecialRates','SpecialRates','SpecialRates','Corporate Total','Corporate Total','Corporate Total','Wholesale','Wholesale','Wholesale','Traditional WHL Total','Traditional WHL Total','Traditional WHL Total','Management-Discount','Management-Discount','Management-Discount','Wanda Award','Wanda Award','Wanda Award','Long Stay','Long Stay','Long Stay','Permanent','Permanent','Permanent','FIT Others Total','FIT Others Total','FIT Others Total','Individual Total','Individual Total','Individual Total','Corp. Meeting With Function','Corp. Meeting With Function','Corp. Meeting With Function','Corp. Meeting Without Function','Corp. Meeting Without Function','Corp. Meeting Without Function','Group Incentive','Group Incentive','Group Incentive','Group Convention','Group Convention','Group Convention',"Group Others","Group Others",'Group Others',"Contracted Crew","Contracted Crew",'Contracted Crew',"Group Corporate Total","Group Corporate Total",'Group Corporate Total',"Tour Series","Tour Series",'Tour Series',"Tour Ad Hoc(ADH)","Tour Ad Hoc(ADH)",'Tour Ad Hoc(ADH)',"Group LeisureTotal","Group LeisureTotal",'Group LeisureTotal',"Group Total","Group Total",'Group Total',"Mgt. Approved Comp & HUS","Mgt. Approved Comp & HUS",'Mgt. Approved Comp & HUS',"Mgt. Approved Comp & HUS","Mgt. Approved Comp & HUS",'Mgt. Approved Comp & HUS',"Other Revenue","Other Revenue",'Other Revenue',"Service Charge","Service Charge",'Service Charge',"Others Total","Others Total",'Others Total',"Total Paid Room","Total Paid Room",'Total Paid Room',"Total Room","Total Room",'Total Room',"Vacant","Occ"];
+
+
+var index_list = ["RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","ADR","REV","RNs","RNs"];
+
+
+function getData() {
+
+
+$.ajax({
+   type: "GET",
+   url: "http://127.0.0.1:8000/demo/index/Segment_Daily_1_Data/",
+   
+   dataType: 'json',
+   //data:{"param":param}
+   success: function (result) {
+       html_str = '';
+       chart.setOption(result.data);
+   
+        //追加tr标签，以便循环遍历数据，全部生成表格
+        html_str +='<tr>';
+        //获取标头
+        html_str += "<th>Segment</th><th>Section</th>";
+        var raw_data = result.raw_data.columns;//表头
+        for (var i = 0; i <raw_data.length; i++) {
+            html_str += "<th>"+raw_data[i]+"</th>";
+            }
+         //数据部分
+        var data_list = result.raw_data.data;
+
+        for (var d=0;d<data_list.length;d++){
+            console.log(d);
+            html_str += '<tr>';
+            //最后两行数据不做合并，先判断不做合并行数的索引
+            if (d >=111 ){
+                html_str+='<th>'+index2[d]+'</th>';
+            }
+            //判断列表长度除三余数是否为0，是为了合并上下单元格，必须先做合并索引范围判断，再做余数判断
+            if(d<111 ){
+                if (d % 3 ===0){
+                   html_str+='<th rowspan="3">'+index2[d]+'</th>';
+                }
+            }
+            //此行是追加行头，行头必须和值再一个tr
+            html_str+='<th> '+index_list[d]+'</th>';
+
+            for (var a=0;a<data_list[d].length;a++){
+                html_str +="</th><td>"+ data_list[d][a]+"</td>";
+            }
+        }
+
+         html_str += '</tr>';
+
+        $('.gridtable').html(html_str);
+           }});
+               }
+               
+
+</script>
+
+
+<script>
+    $("#date").datetime({
+      type:"date",
+      value:[2019,9,31],
+      success:function(res){
+        //console.log(res)
+      }
+    });
+    $("#time").datetime({
+      type:"time",
+      value:[12,28]
+    });
+
+    $("#datetime").datetime({
+      type:"datetime",
+      value:[2019,7,15,15,30]
+    })
+</script>
+
+
+<!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 3.0.5
+    </div>
+  </footer>
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+
+
+</body>
+</html>
+
+
+
+

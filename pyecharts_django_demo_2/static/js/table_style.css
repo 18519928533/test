@@ -1,0 +1,42 @@
+
+
+table.gridtable {
+    font-family: verdana,arial,sans-serif;
+    font-size:11px;
+    color:#333333;
+    border-width: 1px;
+    border-color: #666666;
+    border-collapse: collapse;
+
+}
+table.gridtable th {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #dedede;
+}
+table.gridtable td {
+    border-width: 1px;
+    padding: 3px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #ffffff;
+
+}
+
+
+.button1 {
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding: 4px 4px;
+    text-align: center;
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50;
+    border-radius:5px;
+}
+.button1:hover {
+    background-color: gray;
+    color: white;
+}
